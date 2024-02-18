@@ -12,10 +12,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/repositories")
@@ -33,7 +30,6 @@ public class RepositoryController {
         if (header != null && header.equals("application/json")) {
             return repositoryService.getUserRepositories(username);
         }
-        return new ResponseEntity<>("Missing accept json header", HttpStatus.NOT_ACCEPTABLE);
-
+        return new ResponseEntity<>("Invalid Accept header", HttpStatus.BAD_REQUEST);
     }
 }

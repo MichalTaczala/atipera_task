@@ -2,7 +2,10 @@ package com.example.task;
 
 import com.example.task.models.Branch;
 import com.example.task.models.Repository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +24,17 @@ public class RepositoryService {
 
     @Value("${github.api.url}")
     private String githubApiUrl;
-    private ObjectMapper objectMapper = new ObjectMapper();
+
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
+
+    public RepositoryService(RestTemplate restTemplate, ObjectMapper objectMapper) {
+        this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
+    }
 
 
     public ResponseEntity getUserRepositories(String username) {
-        RestTemplate restTemplate = new RestTemplate();
         String url = githubApiUrl + "/users/" + username + "/repos";
 
         ResponseEntity<Object[]> responseFromGithub;
@@ -63,7 +72,7 @@ public class RepositoryService {
 
 
                     }
-                } catch (IOException e) {
+                } catch ( JsonProcessingException e) {
                     Map<String, String> error = new HashMap<>();
                     error.put("status", String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
                     error.put("message", "Internal server error");
@@ -80,10 +89,6 @@ public class RepositoryService {
             return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(repositoriesResponse, HttpStatus.OK);
-    }
-
-    void getBranchesFromRepository(String ownerLogin, String repositoryName) {
-
     }
 
 }
