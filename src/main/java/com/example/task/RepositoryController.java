@@ -30,6 +30,6 @@ public class RepositoryController {
         if (header != null && header.equals("application/json")) {
             return repositoryService.getUserRepositories(username);
         }
-        return new ResponseEntity<>("Invalid Accept header", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
     }
 }
