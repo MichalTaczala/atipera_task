@@ -48,13 +48,17 @@ Application should have a proper README.md file
 ## Screenshots
 
 Here are some screenshots of the application:
-
+### Happy path
 ![Happy path](screenshots/happy_path.png)
 
+### Bad header
 ![Bad Header](screenshots/bad_header.png)
 
+
+### Non existing user
 ![Non existing user](screenshots/non_existing_user.png)
 
+### Tests coverage
 ![Tests Coverage](screenshots/tests.png)
 ## Setup
 
