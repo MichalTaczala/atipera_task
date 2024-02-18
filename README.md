@@ -62,6 +62,9 @@ You can run the project using docker:
 
 go to the project folder and run ,,docker compose up"
 
+You can user the api using with sending get request to:
+http://localhost:8080/repositories/{username}
+
 ## Testing
 
 Methods from controller and service have 100% line and method coverage
